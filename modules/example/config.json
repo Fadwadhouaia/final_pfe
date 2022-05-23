@@ -1,0 +1,54 @@
+{
+  "routes":[
+     {
+      "path":"/home",
+      "name":"home",
+      "page" :"/index.vue"
+    },
+     {
+      "path":"/teamTest",
+      "name":"teamTest",
+      "page" :"/teamTest.vue"
+    },
+     {
+      "path":"/overview",
+      "name":"overview",
+      "page" :"/overview.vue"
+    },
+     {
+      "path":"/repoList",
+      "name":"repoList",
+      "page" :"/repoList.vue"
+    },
+    {
+      "path":"/apps",
+      "name":"apps",
+      "page" :"/apps.vue"
+    },
+     {
+      "path":"/graphqlTest",
+      "name":"graphqlTest",
+      "page" :"/graphqlTest.vue"
+    },
+    {
+      "path":"/chartJs",
+      "name":"chartJs",
+      "page" :"/chartJs.vue"
+    },
+     {
+      "path":"/newTest",
+      "name":"newTest",
+      "page" :"/newTest.vue"
+    },
+    {
+      "path":"/chhh",
+      "name":"chhh",
+      "page" :"/chhh.vue"
+    },
+     {
+      "path":"/testCommitList",
+      "name":"testCommitList",
+      "page" :"/testCommitList.vue"
+    }
+  ]
+}
