@@ -57,6 +57,7 @@ export default {
       return store.data;
     });
     const labelsPR = computed(() => {
+      
       return store.labels;
     });
 
