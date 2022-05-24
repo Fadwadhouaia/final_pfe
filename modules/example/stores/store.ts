@@ -78,6 +78,7 @@ export const useTodoStore = defineStore('useTodoStore', {
       });
 
       this.labels = [...new Set(this.labels)];
+
       this.labels.forEach((e: any, i: any) => {
         this.data[i] = 0;
       });
@@ -85,7 +86,6 @@ export const useTodoStore = defineStore('useTodoStore', {
       characters.data.organization.repository.pullRequests.nodes.map((e: any) => {
         this.data[this.labels.indexOf(e.createdAt.split('T')[0])]++;
       });
-      console.log('FADWA||||', this.labels.includes('11'));
       // console.log('LABELS||||', this.labels);
       // console.log('DATA|||', this.data);
       return onSuccess(
