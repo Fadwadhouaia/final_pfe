@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { defineStore } from 'pinia';
 
 // useStore could be anything like useUser, useCart
@@ -16,7 +17,11 @@ export const useTodoStore = defineStore('useTodoStore', {
       commitLabels: [],
       commitData: [],
       commitCount: [],
-      commitLabelsFiltred:[],
+      commitLabelsFiltred: [],
+      lastMonthLabelsPR: [],
+      lastMonthDataPR: [],
+      lastMonthDataCommit: [],
+      lastMonthLabelsCommit: [],
     };
   },
   actions: {
@@ -44,7 +49,7 @@ export const useTodoStore = defineStore('useTodoStore', {
 
         headers: {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: 'Bearer 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',
+          Authorization: 'Bearer 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',
         },
 
         body: JSON.stringify({
@@ -76,7 +81,6 @@ export const useTodoStore = defineStore('useTodoStore', {
       characters.data.organization.repository.pullRequests.nodes.map((e: any) => {
         this.labels.push(e.createdAt.split('T')[0]);
       });
-
       this.labels = [...new Set(this.labels)];
 
       this.labels.forEach((e: any, i: any) => {
@@ -86,13 +90,41 @@ export const useTodoStore = defineStore('useTodoStore', {
       characters.data.organization.repository.pullRequests.nodes.map((e: any) => {
         this.data[this.labels.indexOf(e.createdAt.split('T')[0])]++;
       });
-      // console.log('LABELS||||', this.labels);
-      // console.log('DATA|||', this.data);
-      return onSuccess(
-        //labels howa tableau lowel
-        console.log(this.labels),
-        this.labels
-      );
+
+      let labelsDate = [];
+      characters.data.organization.repository.pullRequests.nodes.map((e: any) => {
+        labelsDate.push(e.createdAt);
+      });
+      const lastItem = this.labels[this.labels.length - 1];
+      const two = new Date(lastItem);
+      var twoMonth = two.getMonth() + 1;
+      var twoYear = two.getFullYear();
+
+      for (let index = 0; index < this.labels.length; index++) {
+        if (this.labels[index].includes(twoMonth && twoYear)) {
+          this.lastMonthLabelsPR.push(this.labels[index]);
+        }
+      }
+
+      let lastMonthSplit = [];
+      for (let index = 0; index < this.lastMonthLabelsPR.length; index++) {
+        lastMonthSplit.push(this.lastMonthLabelsPR[index].substring(0, 7));
+      }
+      console.log('lastMonthSplit', lastMonthSplit);
+
+    
+      this.lastMonthLabelsPR.forEach((e: any, i: any) => {
+        this.lastMonthDataPR[i] = 0;
+      });
+
+      characters.data.organization.repository.pullRequests.nodes.map((e: any) => {
+        this.lastMonthDataPR[this.lastMonthLabelsPR.indexOf(e.createdAt.split('T')[0])]++;
+      });
+
+  
+      //hethi nkharjou beha le mois exactement
+      // console.log('fffff', this.labels[0].substring(5, 7));
+      return onSuccess();
     },
 
     async commitDate({ onError, onSuccess }: any) {
@@ -101,7 +133,7 @@ export const useTodoStore = defineStore('useTodoStore', {
 
         headers: {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: 'Bearer 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',
+          Authorization: 'Bearer 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',
         },
 
         body: JSON.stringify({
@@ -136,6 +168,7 @@ export const useTodoStore = defineStore('useTodoStore', {
       });
 
       this.commitLabelsFiltred = [...new Set(this.commitLabels)];
+
       var reapeted;
       this.commitLabelsFiltred.forEach((elementDate, index) => {
         reapeted = 0;
@@ -146,11 +179,26 @@ export const useTodoStore = defineStore('useTodoStore', {
         });
         this.commitCount[index] = reapeted;
       });
-    
-      // commitLabelsFiltred howa tableau theni
-      console.log('LABELS||||', this.commitLabelsFiltred);
-      console.log('DATA||||', this.commitCount);
 
+      const lastItem = this.commitLabels[this.commitLabels.length - 1];
+      console.log('LAST ITEM COMMIT', lastItem);
+      const two = new Date(lastItem);
+      var twoMonth = two.getMonth() + 1;
+      console.log('twoMonth', twoMonth);
+
+      var twoYear = two.getFullYear();
+      console.log('twoMonth', twoYear);
+      for (let index = 0; index < this.commitLabelsFiltred.length; index++) {
+        if (this.commitLabelsFiltred[index].includes(twoMonth && twoYear)) {
+          this.lastMonthLabelsCommit.push(this.commitLabelsFiltred[index]);
+        }
+      }
+      console.log('lastMonthLabelsCommit', this.lastMonthLabelsCommit);
+
+      for (var i = 0; i < this.lastMonthLabelsCommit.length; i++){
+        this.lastMonthDataCommit.push(this.commitCount[i])
+      }
+        console.log('lastMonthDataCommit lastMonthDataCommit lastMonthDataCommit', this.lastMonthDataCommit);
       return onSuccess();
     },
 
@@ -158,7 +206,7 @@ export const useTodoStore = defineStore('useTodoStore', {
       try {
         const headers = {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: 'Bearer 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',
+          Authorization: 'Bearer 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',
         };
         const response: any = await fetch('https://api.github.com/search/repositories?q=user:keyrustunisie', {
           method: 'GET',
@@ -177,7 +225,7 @@ export const useTodoStore = defineStore('useTodoStore', {
       try {
         const headers = {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: 'Bearer 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',
+          Authorization: 'Bearer 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',
         };
         const response: any = await fetch('https://api.github.com/repos/keyrustunisie/' + repoName + '/branches', {
           method: 'GET',
@@ -197,7 +245,7 @@ export const useTodoStore = defineStore('useTodoStore', {
       try {
         const headers = {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: 'Bearer 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',
+          Authorization: 'Bearer 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',
         };
         const response: any = await fetch('https://api.github.com/repos/fahmimrabti10/uaa/branches', {
           method: 'GET',
@@ -216,7 +264,7 @@ export const useTodoStore = defineStore('useTodoStore', {
     async getTeamsMembers({ onError, onSuccess }: any) {
       const headers = {
         Accept: 'application/vnd.github.v3+json',
-        Authorization: 'Bearer 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',
+        Authorization: 'Bearer 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',
       };
       const responseTeam = await fetch('https://api.github.com/orgs/keyrustunisie/teams', {
         method: 'GET',
@@ -250,7 +298,7 @@ export const useTodoStore = defineStore('useTodoStore', {
       try {
         const headers = {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: 'Bearer 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',
+          Authorization: 'Bearer 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',
         };
         const response: any = await fetch(`https://api.github.com/repos/fahmimrabti10/uaa/commits?sha=${branchName}`, {
           method: 'GET',
@@ -282,7 +330,7 @@ export const useTodoStore = defineStore('useTodoStore', {
       try {
         const headers = {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: 'Bearer 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',
+          Authorization: 'Bearer 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',
         };
         const response: any = await fetch(
           'https://api.github.com/repos/keyrustunisie/' + repoName + '/actions/runs?branch=' + branchName,
@@ -322,7 +370,7 @@ export const useTodoStore = defineStore('useTodoStore', {
       try {
         const headers = {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: 'Bearer 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',
+          Authorization: 'Bearer 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',
         };
         const response: any = await fetch(
           'https://api.github.com/repos/keyrustunisie/' + repoName + '/commits?sha=' + branchName,
@@ -359,7 +407,7 @@ export const useTodoStore = defineStore('useTodoStore', {
       try {
         const headers = {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: 'Bearer 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',
+          Authorization: 'Bearer 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',
         };
         const response: any = await fetch(`https://api.github.com/repos/fahmimrabti10/uaa/commits?sha=${branchName}`, {
           method: 'GET',
@@ -379,7 +427,7 @@ export const useTodoStore = defineStore('useTodoStore', {
       try {
         const headers = {
           Accept: 'application/vnd.github.v3+json',
-          Authorization: 'Bearer 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',
+          Authorization: 'Bearer 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',
         };
         const response: any = await fetch('https://api.github.com/repos/fahmimrabti10/uaa/commits?sha=master', {
           method: 'GET',

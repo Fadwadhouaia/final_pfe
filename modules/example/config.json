@@ -45,6 +45,11 @@
       "name":"chhh",
       "page" :"/chhh.vue"
     },
+    {
+      "path":"/lastMonth",
+      "name":"lastMonth",
+      "page" :"/lastMonth.vue"
+    },
      {
       "path":"/testCommitList",
       "name":"testCommitList",
