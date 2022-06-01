@@ -1,6 +1,6 @@
 <template>
   <div class="lastmonth_pr">
-    <canvas id="LineChart" width="400" height="400" />
+    <canvas id="LineChart2" width="200" height="200" />
   </div>
 </template>
 
@@ -13,12 +13,12 @@ export default {
   name: 'ChartLines',
 
   props: {
-    lastMonthLabelsPR: {
+    lastMonthLabelsCommit: {
       type: Array,
       default: [],
     },
  
-    lastMonthDataPR: {
+    lastMonthDataCommit: {
       type: Array,
       default: [],
     },
@@ -30,11 +30,11 @@ export default {
     const store: any = useTodoStore();
     var myChart = null;
     // var data_length = 0;
-    const dates = ref(props.lastMonthLabelsPR);
+    const dates = ref(props.lastMonthLabelsCommit);
 
    
     onMounted(() => {
-      var ctx = document.getElementById('LineChart').getContext('2d');
+      var ctx = document.getElementById('LineChart2').getContext('2d');
 
       myChart = new Chart(ctx, {
         type: 'line',
@@ -43,8 +43,8 @@ export default {
           labels: dates.value,
           datasets: [
             {
-              label: 'Last Month Pull Request ',
-              data: props.lastMonthDataPR,
+              label: 'Last Month Commit ',
+              data: props.lastMonthDataCommit,
               fill: false,
               borderColor: 'rgb(75, 192, 192)',
               tension: 0.1,
@@ -68,7 +68,7 @@ export default {
   width: 470px;
 }
 
-#LineChart {
+#LineChart2 {
   max-width: 100%;
   max-height: 300px;
 }

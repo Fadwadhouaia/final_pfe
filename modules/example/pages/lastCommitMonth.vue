@@ -1,18 +1,8 @@
 <template>
-  <div  v-if="isLoaded" class="cards">
-    <div class="pr">
+  <div v-if="isLoaded" class="cards">
+    <div class="android-card">
       <div class="chart-div">
-        <LastMonthChart
-          v-if="lastMonthDataPR.length && lastMonthLabelsPR.length && isLoaded"
-          :lastMonthLabelsPR="lastMonthLabelsPR"
-          :lastMonthDataPR="lastMonthDataPR"/>
-      </div>
-    </div>
-
-
-    <div class="commit">
-      <div class="chart">
-         <LastMonthCommit
+        <LastMonthCommit
           v-if="lastMonthDataCommit.length && lastMonthLabelsCommit.length && isLoaded"
           :lastMonthLabelsCommit="lastMonthLabelsCommit"
           :lastMonthDataCommit="lastMonthDataCommit"/>
@@ -21,32 +11,20 @@
   </div>
 </template>
 <script lang="ts">
-import LastMonthChart from '../components/LastMonthChart.vue';
 import LastMonthCommit from '../components/LastMonthCommit.vue';
 import { computed, onMounted, ref } from '@nuxtjs/composition-api';
 import { useTodoStore } from '@EXAMPLE/stores/store';
 export default {
-  components: { LastMonthChart, LastMonthCommit },
+  components: { LastMonthCommit },
   setup() {
     const isLoaded = ref(false);
     onMounted(() => {
       getlist();
-      getCommit();
 
       // update();
     });
 
     const getlist = () => {
-      store.testGraphQl({
-        onError: () => {
-          /* */
-        },
-        onSuccess: () => {
-          isLoaded.value = true;
-        },
-      });
-    };
-     const getCommit = () => {
       store.commitDate({
         onError: () => {
           /* */
@@ -59,7 +37,7 @@ export default {
 
     const store: any = useTodoStore();
 
-     const lastMonthDataCommit = computed(() => {
+    const lastMonthDataCommit = computed(() => {
       return store.lastMonthDataCommit;
     });
     console.log('lastMonthDataCommit lastMonthDataCommit lastMonthDataCommit', lastMonthDataCommit.value);
@@ -68,34 +46,18 @@ export default {
     });
 
     console.log(' lastMonthLabelsCommit lastMonthLabelsCommit lastMonthLabelsCommit lastMonthLabelsCommit ', lastMonthLabelsCommit.value);
-
-    const lastMonthDataPR = computed(() => {
-      return store.lastMonthDataPR;
-    });
-    console.log('lastMonthDataPR lastMonthDataPR lastMonthDataPR', lastMonthDataPR.value);
-    const lastMonthLabelsPR = computed(() => {
-      return store.lastMonthLabelsPR;
-    });
-
-    console.log(' lastMonthLabelsPR lastMonthLabelsPR lastMonthLabelsPR lastMonthLabelsPR ', lastMonthLabelsPR.value);
     return {
-      getCommit,
       getlist,
-      lastMonthDataPR,
-      lastMonthLabelsPR,
       lastMonthDataCommit,
       lastMonthLabelsCommit,
+      // update,
       isLoaded,
     };
   },
 };
 </script>
 <style>
-.cards{
-
-  display: flex;
-}
 .title {
-  color: aquamarine;
+  color: rebeccapurple;
 }
 </style>

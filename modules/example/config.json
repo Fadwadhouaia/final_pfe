@@ -50,6 +50,11 @@
       "name":"lastMonth",
       "page" :"/lastMonth.vue"
     },
+    {
+      "path":"/lastCommitMonth",
+      "name":"lastCommitMonth",
+      "page" :"/lastCommitMonth.vue"
+    },
      {
       "path":"/testCommitList",
       "name":"testCommitList",
