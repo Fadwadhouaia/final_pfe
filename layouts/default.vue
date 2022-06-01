@@ -22,7 +22,7 @@
             <a-menu-item key="Groups" @click="$router.push(localePath({ name: 'teamTest' }))"> Groups </a-menu-item>
             <a-menu-item key="Releases"> Releases </a-menu-item>
           </a-sub-menu>
-          <a-menu-item key="Analytics">
+          <a-menu-item key="Analytics"  @click="$router.push(localePath({ name: 'analytics' }))">
             <a-icon type="fund" />
             <span>Analytics</span>
           </a-menu-item>

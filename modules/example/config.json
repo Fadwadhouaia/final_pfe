@@ -46,8 +46,8 @@
       "page" :"/chhh.vue"
     },
     {
-      "path":"/lastMonth",
-      "name":"lastMonth",
+      "path":"/analytics",
+      "name":"analytics",
       "page" :"/lastMonth.vue"
     },
     {

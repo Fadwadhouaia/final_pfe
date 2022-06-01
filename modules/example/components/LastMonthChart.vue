@@ -65,7 +65,7 @@ export default {
 <style scoped>
 .lastmonth_pr{
   height: 470px;
-  width: 470px;
+  width: 550px;
 }
 
 #LineChart {

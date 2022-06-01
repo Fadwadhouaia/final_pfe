@@ -1,5 +1,5 @@
 <template>
-  <div class="lastmonth_pr">
+  <div class="lastmonth_commit">
     <canvas id="LineChart2" width="200" height="200" />
   </div>
 </template>
@@ -63,9 +63,9 @@ export default {
 </script>
 
 <style scoped>
-.lastmonth_pr{
+.lastmonth_commit{
   height: 470px;
-  width: 470px;
+  width: 600px;
 }
 
 #LineChart2 {

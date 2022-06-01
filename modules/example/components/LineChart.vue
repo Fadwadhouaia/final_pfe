@@ -1,6 +1,6 @@
 <template>
   <div class="container-data p-2 mt-3">
-    <canvas id="LineChart" width="200" height="200" />
+    <canvas id="LineChart3" width="200" height="200" />
     <div class="buttons">
       <a-button v-bind:class="getClassAdd()" class="add" type="primary" @click="useaddDate"> Add datasets </a-button>
 
@@ -62,7 +62,7 @@ export default {
     dates.value = dates.value.slice(0, 20);
     const indexer = ref(20);
     onMounted(() => {
-      var ctx = document.getElementById('LineChart').getContext('2d');
+      var ctx = document.getElementById('LineChart3').getContext('2d');
 
       myChart = new Chart(ctx, {
         type: 'line',
@@ -143,7 +143,7 @@ export default {
   background-color: #ff1818;
   border-color: #ff1818;
 }
-#LineChart {
+#LineChart3 {
   max-width: 100%;
 
   max-height: 300px;

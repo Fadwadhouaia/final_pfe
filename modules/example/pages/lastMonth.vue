@@ -1,5 +1,8 @@
 <template>
-  <div  v-if="isLoaded" class="cards">
+<div class="chart_global" v-if="isLoaded"> 
+   
+  <div   class="cards">
+
     <div class="pr">
       <div class="chart-div">
         <LastMonthChart
@@ -8,8 +11,6 @@
           :lastMonthDataPR="lastMonthDataPR"/>
       </div>
     </div>
-
-
     <div class="commit">
       <div class="chart">
          <LastMonthCommit
@@ -18,15 +19,31 @@
           :lastMonthDataCommit="lastMonthDataCommit"/>
       </div>
     </div>
+
   </div>
+  <div class="android-card">
+      <div class="chart-div">
+        <LineChart
+          v-if="initialLabels.length && combinedLabels.length && dataPR.length && dataCommit.length  && isLoaded"
+          :labelsPR="labelsPR"
+          :dataPR="dataPR"
+          :dataCommit="dataCommit"
+          :labelsCommit="labelsCommit"
+          :combinedLabels="combinedLabels"
+          :initialLabels="initialLabels"
+        />
+      </div>
+    </div>
+</div>  
 </template>
 <script lang="ts">
+import LineChart from '../components/LineChart.vue';
 import LastMonthChart from '../components/LastMonthChart.vue';
 import LastMonthCommit from '../components/LastMonthCommit.vue';
 import { computed, onMounted, ref } from '@nuxtjs/composition-api';
 import { useTodoStore } from '@EXAMPLE/stores/store';
 export default {
-  components: { LastMonthChart, LastMonthCommit },
+  components: { LastMonthChart, LastMonthCommit, LineChart },
   setup() {
     const isLoaded = ref(false);
     onMounted(() => {
@@ -59,6 +76,31 @@ export default {
 
     const store: any = useTodoStore();
 
+        const dataPR = computed(() => {
+      // console.log(store.data, 'TESTTTTTTTTT');
+      return store.data;
+    });
+    const labelsPR = computed(() => {
+      return store.labels;
+    });
+
+    const labelsCommit = computed(() => {
+      return store.commitLabelsFiltred;
+    });
+
+    const dataCommit = computed(() => {
+      return store.commitCount;
+    });
+
+    const combinedLabels = computed(() => {
+      return [...new Set(labelsPR.value.concat(labelsCommit.value))];
+    });
+
+    const initialLabels = computed(() => {
+      return combinedLabels.value;
+    });
+
+
      const lastMonthDataCommit = computed(() => {
       return store.lastMonthDataCommit;
     });
@@ -86,6 +128,12 @@ export default {
       lastMonthDataCommit,
       lastMonthLabelsCommit,
       isLoaded,
+       dataPR,
+      labelsPR,
+      labelsCommit,
+      dataCommit,
+      combinedLabels,
+      initialLabels,
     };
   },
 };
