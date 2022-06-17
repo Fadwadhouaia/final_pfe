@@ -66,7 +66,18 @@ export default {
 
       myChart = new Chart(ctx, {
         type: 'line',
+         options: {
+        plugins: {
+            subtitle: {
+                display: true,
+                text: 'Custom Chart Subtitle'
+            },
+            title:{
+              color:'rgb(75, 7, 92)'
 
+            }
+        }
+    },
         data: {
           labels: dates.value,
           datasets: [

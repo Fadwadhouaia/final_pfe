@@ -6,8 +6,8 @@
       "page" :"/index.vue"
     },
      {
-      "path":"/teamTest",
-      "name":"teamTest",
+      "path":"/groups",
+      "name":"groups",
       "page" :"/teamTest.vue"
     },
      {
@@ -51,6 +51,21 @@
       "page" :"/lastMonth.vue"
     },
     {
+      "path":"/settings",
+      "name":"settings",
+      "page" :"/settings.vue"
+    },
+    {
+      "path":"/modules",
+      "name":"modules",
+      "page" :"/modules.vue"
+    },
+    {
+      "path":"/releases",
+      "name":"releases",
+      "page" :"/releases.vue"
+    },
+    {
       "path":"/lastCommitMonth",
       "name":"lastCommitMonth",
       "page" :"/lastCommitMonth.vue"
@@ -59,6 +74,11 @@
       "path":"/testCommitList",
       "name":"testCommitList",
       "page" :"/testCommitList.vue"
+    },
+     {
+      "path":"/login",
+      "name":"login",
+      "page" :"/login.vue"
     }
   ]
 }

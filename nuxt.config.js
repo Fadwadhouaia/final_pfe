@@ -60,9 +60,14 @@ export default defineNuxtConfig({
     '@nuxtjs/composition-api/module',
     ['@pinia/nuxt'],
   ],
+  router: {
+  middleware: ['auth']
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/auth-next',
+    '@nuxtjs/axios',
     '@nuxtjs/i18n',
     '~/modules/example',
   ],
@@ -103,6 +108,31 @@ export default defineNuxtConfig({
   },
   privateRuntimeConfig: {
     //
+  },
+
+  auth: {
+  strategies: {
+    github: {
+      clientId: 'a75532795af5480486a5',
+      clientSecret: '226674738424c08e1cc95f5e66a11b5e23f9f111'
+    },
+    },
+    redirect: {
+    login: '/fr/login',
+    logout: '/fr/login',
+    callback: '/fr/login',
+    home: '/fr/overview'
+    },
+    cookie: {
+    prefix: 'auth.',
+    options: {
+      path: '/'
+    }
+    },
+    token: {
+    prefix: '_token.',
+    global: true,
   }
+}
  
 })

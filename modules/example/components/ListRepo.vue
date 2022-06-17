@@ -3,8 +3,7 @@
     <a-select
       placeholder="Select a repository"
       @change="handleChange"
-      :defaultValue="data[0].name"
-    >
+      :defaultValue="data[0].name">
       <a-select-option v-for="item in data" :value="item.name">
         {{ item.name }}
       </a-select-option>
